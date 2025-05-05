@@ -1,59 +1,29 @@
-# HowDark
+# Legal Notice
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
+This project How Dark is an independent product published under the Shadowdark RPG Third-Party License and is not affiliated with
+The Arcane Library, LLC. Shadowdark RPG © 2023 The Arcane Library, LLC. For more information see here:
 
-## Development server
+https://www.thearcanelibrary.com/blogs/shadowdark-blog/faq-on-the-shadowdark-rpg-third-party-license
 
-To start a local development server, run:
+# Summary
 
-```bash
-ng serve
-```
+I'm working on a programming project based on Shadow Dark rules. It's a combat simulator aptly named "How Dark?".
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+# Assumptions & Key Points
 
-## Code scaffolding
+1. No surprise (yet?)
+2. All creatures in near distance
+3. Mobs randomly choose a target Players focus fire
+4. Heal spells only go off if someone is hurt
+5. If a creature can do one of many thing randomly choose
+6. AOE spells randomly target a number of creatures... for example Burning Hands D4 targets
+7. Dying, unconscious, paralyzed, fear, sleeping, engulfed conditions implemented
+8. All simple weapons implemented
+9. Magic Missile, Burning Hands, Sleep, Cure Wounds, Shield of Faith, Turn Undead implemented so far.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+# Example Simulation Results
+4 level 1 characters against 1 Ogre... 1,000 fights...
 
-```bash
-ng generate component component-name
-```
+`Group 1: wins=456, winsWithDeath=123`
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+`Group 2: wins=544, winsWithDeath=0`
