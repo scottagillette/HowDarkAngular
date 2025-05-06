@@ -1,5 +1,16 @@
-  .top-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-    gap: 10px; /* Add gap between grid items */
-  }
+.app {
+  margin: 10px;
+}
+
+.top-container {
+  display: grid;
+  gap: 10px; /* Add gap between grid items */
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  margin: 10px;
+}
+.bottom-container {
+  display: grid;
+  gap: 10px; /* Add gap between grid items */
+  grid-template-columns: 1fr;
+  margin: 10px;
+}
