@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { CharacterDialogComponent } from '../character-dialog/character-dialog.component';
 
 export interface Creature {
   name: string;
@@ -25,6 +26,7 @@ const PLAYER_DATA: Creature[] = [
 
 @Component({
   selector: 'app-player-dashboard',
+  standalone: true,
   imports: [ MatButtonModule, MatCardModule, MatTableModule ],
   templateUrl: './player-dashboard.component.html',
   styleUrl: './player-dashboard.component.css'
@@ -33,6 +35,21 @@ export class PlayerDashboardComponent {
   constructor(private dialog: MatDialog) {}
 
   displayedColumns = ['name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-
   datasource = PLAYER_DATA;
+
+  openAddPlayerDialog(): void {
+    const dialogRef = this.dialog.open(CharacterDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.datasource = [...this.datasource, result];
+      }
+    });
+  }
+
+  removeLastPlayer(): void {
+    if (this.datasource.length > 0) {
+      this.datasource = this.datasource.slice(0, -1);
+    }
+  }
 }

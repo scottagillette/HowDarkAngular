@@ -1,0 +1,15 @@
+.dialog-content {
+  min-width: 400px;
+  padding: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}

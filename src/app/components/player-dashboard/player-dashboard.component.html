@@ -1,14 +1,13 @@
 <h2>Player Dashboard</h2>
 
 <div class="example-button-row">
-  <button mat-button>Add Player</button>
-  <button mat-button>Remove Player</button>
+  <button mat-button (click)="openAddPlayerDialog()">Add Player</button>
+  <button mat-button (click)="removeLastPlayer()">Remove Player</button>
 </div>
 
 <mat-card appearance="outlined">
   <mat-card-content>
     <table mat-table [dataSource]="datasource" class="mat-elevation-z8">
-
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name</th>
         <td mat-cell *matCellDef="let creature"> {{ creature.name }}</td>
