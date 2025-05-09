@@ -1,7 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { MonsterDialogComponent } from '../monster-dialog/monster-dialog.component';
 
 export interface Creature {
   name: string;
@@ -22,12 +24,30 @@ const MONSTER_DATA: Creature[] = [
 
 @Component({
   selector: 'app-monster-dashboard',
+  standalone: true,
   imports: [ MatButtonModule, MatCardModule, MatTableModule ],
   templateUrl: './monster-dashboard.component.html',
   styleUrl: './monster-dashboard.component.css'
 })
 export class MonsterDashboardComponent {
-  displayedColumns = ['name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+  constructor(private dialog: MatDialog) {}
 
+  displayedColumns = ['name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
   datasource = MONSTER_DATA;
+
+  openAddMonsterDialog(): void {
+    const dialogRef = this.dialog.open(MonsterDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.datasource = [...this.datasource, result];
+      }
+    });
+  }
+
+  removeLastMonster(): void {
+    if (this.datasource.length > 0) {
+      this.datasource = this.datasource.slice(0, -1);
+    }
+  }
 }
