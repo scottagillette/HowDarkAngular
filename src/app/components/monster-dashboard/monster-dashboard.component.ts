@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MonsterDialogComponent } from '../monster-dialog/monster-dialog.component';
 
 export interface Creature {
@@ -25,7 +25,13 @@ const MONSTER_DATA: Creature[] = [
 @Component({
   selector: 'app-monster-dashboard',
   standalone: true,
-  imports: [ MatButtonModule, MatCardModule, MatTableModule ],
+  imports: [ 
+    MatButtonModule, 
+    MatCardModule, 
+    MatTableModule,
+    MatDialogModule,
+    MonsterDialogComponent
+  ],
   templateUrl: './monster-dashboard.component.html',
   styleUrl: './monster-dashboard.component.css'
 })
