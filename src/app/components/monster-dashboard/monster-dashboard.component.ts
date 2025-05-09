@@ -3,6 +3,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CommonModule } from '@angular/common';
 import { MonsterDialogComponent } from '../monster-dialog/monster-dialog.component';
 
 export interface Creature {
@@ -26,10 +29,12 @@ const MONSTER_DATA: Creature[] = [
   selector: 'app-monster-dashboard',
   standalone: true,
   imports: [ 
+    CommonModule,
     MatButtonModule, 
     MatCardModule, 
     MatTableModule,
     MatDialogModule,
+    MatCheckboxModule,
     MonsterDialogComponent
   ],
   templateUrl: './monster-dashboard.component.html',
@@ -38,8 +43,30 @@ const MONSTER_DATA: Creature[] = [
 export class MonsterDashboardComponent {
   constructor(private dialog: MatDialog) {}
 
-  displayedColumns = ['name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
+  displayedColumns = ['select', 'name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
   datasource = MONSTER_DATA;
+  selection = new SelectionModel<Creature>(true, []);
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.datasource.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllMonsters() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.datasource);
+  }
+
+  removeSelectedMonsters() {
+    const selectedMonsters = new Set(this.selection.selected);
+    this.datasource = this.datasource.filter(monster => !selectedMonsters.has(monster));
+    this.selection.clear();
+  }
 
   openAddMonsterDialog(): void {
     const dialogRef = this.dialog.open(MonsterDialogComponent);
@@ -49,11 +76,5 @@ export class MonsterDashboardComponent {
         this.datasource = [...this.datasource, result];
       }
     });
-  }
-
-  removeLastMonster(): void {
-    if (this.datasource.length > 0) {
-      this.datasource = this.datasource.slice(0, -1);
-    }
   }
 }
