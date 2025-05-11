@@ -1,0 +1,68 @@
+<div class="dialog-content">
+  <h2 mat-dialog-title>Add New Monster</h2>
+  
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="selectedMonster.name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Monster Type</mat-label>
+        <mat-select [(ngModel)]="selectedMonster.type" (selectionChange)="onMonsterTypeChange($event.value)" required>
+          <mat-option *ngFor="let monster of monsterTypes" [value]="monster.type">
+            {{monster.type}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Hit Points</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.hp" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Armor Class</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.ac" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Strength</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.strength" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Dexterity</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.dexterity" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Constitution</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.constitution" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Intelligence</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.intelligence" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Wisdom</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.wisdom" readonly>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Charisma</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedMonster.charisma" readonly>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="onSubmit()" [disabled]="!selectedMonster.name || !selectedMonster.type">
+      Add Monster
+    </button>
+  </mat-dialog-actions>
+</div>

@@ -1,8 +1,12 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CommonModule } from '@angular/common';
+import { CharacterDialogComponent } from '../character-dialog/character-dialog.component';
 
 export interface Creature {
   name: string;
@@ -25,14 +29,52 @@ const PLAYER_DATA: Creature[] = [
 
 @Component({
   selector: 'app-player-dashboard',
-  imports: [ MatButtonModule, MatCardModule, MatTableModule ],
+  standalone: true,
+  imports: [ 
+    CommonModule,
+    MatButtonModule, 
+    MatCardModule, 
+    MatTableModule,
+    MatCheckboxModule
+  ],
   templateUrl: './player-dashboard.component.html',
   styleUrl: './player-dashboard.component.css'
 })
 export class PlayerDashboardComponent {
   constructor(private dialog: MatDialog) {}
 
-  displayedColumns = ['name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
-
+  displayedColumns = ['select', 'name', 'hp', 'ac', 'strength', 'dexterity', 'constitution', 'intelligence', 'wisdom', 'charisma'];
   datasource = PLAYER_DATA;
+  selection = new SelectionModel<Creature>(true, []);
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.datasource.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllPlayers() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.datasource);
+  }
+
+  removeSelectedPlayers() {
+    const selectedPlayers = new Set(this.selection.selected);
+    this.datasource = this.datasource.filter(player => !selectedPlayers.has(player));
+    this.selection.clear();
+  }
+
+  openAddPlayerDialog(): void {
+    const dialogRef = this.dialog.open(CharacterDialogComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.datasource = [...this.datasource, result];
+      }
+    });
+  }
 }

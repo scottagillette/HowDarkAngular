@@ -1,1 +1,71 @@
-<p>character-dialog works!</p>
+<div class="dialog-content">
+  <h2 mat-dialog-title>Add New Character</h2>
+  
+  <mat-dialog-content>
+    <div class="form-grid">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="character.name" required>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Hit Points</mat-label>
+        <input matInput type="number" [(ngModel)]="character.hp" required min="1">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Armor Class</mat-label>
+        <input matInput type="number" [(ngModel)]="character.ac" required min="10">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Strength</mat-label>
+        <input matInput type="number" [(ngModel)]="character.strength" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Dexterity</mat-label>
+        <input matInput type="number" [(ngModel)]="character.dexterity" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Constitution</mat-label>
+        <input matInput type="number" [(ngModel)]="character.constitution" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Intelligence</mat-label>
+        <input matInput type="number" [(ngModel)]="character.intelligence" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Wisdom</mat-label>
+        <input matInput type="number" [(ngModel)]="character.wisdom" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Charisma</mat-label>
+        <input matInput type="number" [(ngModel)]="character.charisma" required min="3" max="18">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Weapon</mat-label>
+        <mat-select [(ngModel)]="character.weapon" required>
+          <mat-option *ngFor="let weapon of weapons" [value]="weapon">
+            {{weapon}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Damage Modifier</mat-label>
+        <input matInput type="number" [(ngModel)]="character.damageModifier" required>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-button color="primary" (click)="onSubmit()" [disabled]="!character.name">Add Character</button>
+  </mat-dialog-actions>
+</div>
